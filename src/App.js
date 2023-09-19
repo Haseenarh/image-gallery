@@ -1,42 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import Gallery from './components/Gallery'; // Assuming Gallery has been modified for DnD.
-import firebase from './firebase';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import './App.css';
+import Gallery from './components/Gallery';
+import { auth } from './firebase';
+// ... (rest of the imports remain unchanged)
 
+// ... (rest of the code remains unchanged)
 
-function App() {
-    const [user, setUser] = useState(null);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const [search, setSearch] = useState(''); // Added search state
-
-    useEffect(() => {
-        const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
-            if (authUser) {
-                setUser(authUser);
-            } else {
-                setUser(null);
-            }
-            setLoading(false);
-        });
-
-        return () => unsubscribe();  // cleanup the listener
-    }, []);
-
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        setError(''); // clear previous error
-
-        try {
-            await firebase.auth().signInWithEmailAndPassword(email, password);
-        } catch (error) {
-            setError(error.message);
+useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+        if (authUser) {
+            setUser(authUser);
+        } else {
+            setUser(null);
         }
-    };
+        setLoading(false);
+    });
+
+    return () => unsubscribe();
+}, []);
+
+const handleLogin = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    try {
+        await auth.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+        setError(error.message);
+    }
+};
+
 
     if (loading) {
         return <div className="spinner"></div>;  // Loading spinner while checking auth state

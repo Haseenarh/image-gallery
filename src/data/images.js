@@ -1,4 +1,4 @@
-const images = [jpg
+const images = [
     { id: 1, src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhY2h8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=900&q=60', tag: 'beach' },
     { id: 2, src: 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bW91bnRhaW58ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=900&q=60', tag: 'mountain' },
     { id: 3, src: 'https://images.unsplash.com/photo-1507832321772-e86cc0452e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cm9ja3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=900&q=60', tag: 'rocks' },

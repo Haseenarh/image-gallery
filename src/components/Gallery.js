@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDrop } from 'react-dnd';
 import originalImages from '../data/images';
+import { useDrag } from 'react-dnd';
+
 
 const DRAGGABLE_IMAGE_TYPE = "IMAGE";
 

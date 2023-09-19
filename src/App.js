@@ -1,37 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import Gallery from './components/Gallery';
 import { auth } from './firebase';
-// ... (rest of the imports remain unchanged)
+import LoadingSpinner from './components/LoadingSpinner';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
-// ... (rest of the code remains unchanged)
+const App = () => {
+    // Define states
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [search, setSearch] = useState('');
 
-useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-        if (authUser) {
-            setUser(authUser);
-        } else {
-            setUser(null);
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((authUser) => {
+            if (authUser) {
+                setUser(authUser);
+            } else {
+                setUser(null);
+            }
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setError('');
+
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+        } catch (error) {
+            setError(error.message);
         }
-        setLoading(false);
-    });
-
-    return () => unsubscribe();
-}, []);
-
-const handleLogin = async (e) => {
-    e.preventDefault();
-    setError('');
-
-    try {
-        await auth.signInWithEmailAndPassword(email, password);
-    } catch (error) {
-        setError(error.message);
-    }
-};
-
+    };
 
     if (loading) {
-        return <div className="spinner"></div>;  // Loading spinner while checking auth state
+        return <LoadingSpinner />;  // Use your LoadingSpinner component
     }
 
     return (

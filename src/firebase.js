@@ -1,7 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
-var firebaseConfig = {
+
+const firebaseConfig = {
     apiKey: "AIzaSyCJnuc4BpXlLA-WKnr4ggc0OnhQIUqCyXI",
     authDomain: "image-gallery-e3fac.firebaseapp.com",
     projectId: "image-gallery-e3fac",

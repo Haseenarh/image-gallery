@@ -1,5 +1,23 @@
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+    
+const auth = getAuth();
+
+const email = 'example@example.com';
+const password = 'password123';
+
+signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    console.log(user);
+  })
+  .catch((error) => {
+    // Error handling
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage);
+  });
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -11,11 +29,10 @@ function Login() {
 
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            // Authentication successful, you can redirect or update UI as needed
+            
         } catch (error) {
-            // Handle Errors here.
             console.error("Error signing in with password and email:", error.message);
-            alert(error.message); // Optionally alert the user about the error
+            alert(error.message); 
         }
     };
 

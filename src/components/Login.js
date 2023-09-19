@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import firebase from './firebase';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -7,9 +7,10 @@ function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        const auth = getAuth();
 
         try {
-            await firebase.auth().signInWithEmailAndPassword(email, password);
+            await signInWithEmailAndPassword(auth, email, password);
             // Authentication successful, you can redirect or update UI as needed
         } catch (error) {
             // Handle Errors here.
